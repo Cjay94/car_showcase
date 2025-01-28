@@ -1,10 +1,11 @@
 "use client"
 
 import { CarProps } from '@/types'
-import { calculateCarRent } from '@/utils'
+import { calculateCarRent, generateCarImageUrl } from '@/utils'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import CustomButton from './CustomButton'
+import CarDetails from './CarDetails'
 
 interface CarCardProps {
     car: CarProps
@@ -38,7 +39,7 @@ const CarCard = ({ car }: CarCardProps) => {
 
             <div className="relative w-full h-40 my-3 object-contain">
                 <Image
-                    src="/hero.png"
+                    src={generateCarImageUrl(car)}
                     alt='car model'
                     sizes='100%'
                     fill
@@ -79,7 +80,7 @@ const CarCard = ({ car }: CarCardProps) => {
                             alt="Fuel"
                         />
                         <p className="text-[14px]">
-                            {(city_mpg / 2.352).toFixed(1)} l/100 km
+                            {(city_mpg / 2.352).toFixed(0)} l/100 km
                         </p>
                     </div>
                 </div>
@@ -94,6 +95,7 @@ const CarCard = ({ car }: CarCardProps) => {
                     />
                 </div>
             </div>
+            <CarDetails isOpen={isOpen} closeModal={() => setIsOpen(false)} car={car} />
         </div>
     )
 }
